@@ -98,9 +98,7 @@ fun CityListScreen(
     Column(modifier = modifier.fillMaxSize()) {
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp)
+            modifier = Modifier.fillMaxWidth().padding(12.dp)
         ) {
             Button(
                 onClick = { addingCity = true
@@ -116,7 +114,8 @@ fun CityListScreen(
                         selectedCity = null
                     }
                 },
-                enabled = selectedCity != null,
+                enabled = selectedCity
+                        != null,
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Delete City")
@@ -127,19 +126,12 @@ fun CityListScreen(
             items(cities) { city -> CityRow(
                     city = city,
                     isSelected = city == selectedCity,
-                    onClick = {
-                        selectedCity =
-                            if (selectedCity == city) null else city
-                        addingCity = false
-                    }
-                )
-            }
+                    onClick = { selectedCity = if (selectedCity == city) null else city
+                        addingCity = false })}
         }
-        if (addingCity) { Row(
-                modifier = Modifier
+        if (addingCity) { Row(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
-            ) {
+                    .padding(20.dp)) {
                 OutlinedTextField(
                     value = newCityName,
                     onValueChange = { newCityName = it },
@@ -160,10 +152,7 @@ fun CityListScreen(
                 ) {
                     Text("CONFIRM")
                 }
-            }
-        }
-    }
-}
+            } } } }
 
 @Composable
 fun CityRow(
